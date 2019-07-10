@@ -24,7 +24,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script>
 <script>
     // var gun = Gun(['http://localhost:8765/gun', 'https://gunjs.herokuapp.com/gun']);
-    var gun = Gun(['http://localhost:8765/gun','http://81.250.154.241:8765/gun',,'https://gun.cleverapps.io/gun']);
+    var gun = Gun('https://gun.cleverapps.io/gun');
     var user = gun.user();
 // création du user GUN
     $('#up').on('click', function(e){
