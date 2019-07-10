@@ -1,0 +1,124 @@
+<html>
+<body>
+<h1>Gun</h1>
+
+<img id="loading" style="visibility: hidden" src="image/loading.gif" height="640" width="640"/>
+
+<form id="sign">
+    <input id="alias" placeholder="username" value="claude">
+    <input id="pass" type="password" placeholder="passphrase" value="kivabien">
+    <input id="in" type="submit" value="sign in">
+    <input id="up" type="button" value="sign up">
+</form>
+
+<ul></ul>
+
+<form id="said">
+    <input id="say">
+    <input id="speak" type="submit" value="speak">
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/gun/examples/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script>
+<script>
+    // var gun = Gun(['https://gun.cleverapps.io/gun','http://localhost:8765/gun', 'https://gunjs.herokuapp.com/gun']);
+    var gun = Gun(['https://gun.cleverapps.io/gun']);
+    var user = gun.user();
+// création du user GUN
+    $('#up').on('click', function(e){
+        user.create($('#alias').val(), $('#pass').val());
+    });
+// se logger dans GUN
+    $('#sign').on('submit', function(e){
+        $("#loading").show();
+        e.preventDefault();
+        user.auth($('#alias').val(), $('#pass').val());
+    });
+
+    $('#said').on('submit', function(e){
+        e.preventDefault();
+        if(!user.is){ return }
+        list.forEach(function(l){
+            user.get('pays').put(l);
+        })
+        user.get('said').set($('#say').val());
+        //$('#say').val("");
+    });
+
+    function UI(say, id){
+        var li = $('#' + id).get(0) || $('<li>').attr('id', id).appendTo('ul');
+        $(li).text(say);
+    };
+
+    gun.on('auth', function(){
+        $('#sign').hide();
+        $("#loading").hide();
+        user.get('said').map().once(UI);
+    });
+    //sign auto
+    user.auth($('#alias').val(), $('#pass').val());
+    $("#loading").show();
+
+    list=[
+        {
+            "CDOCDE": 0,
+            "CPAINT": 99257,
+            "AGEMAJ": 18,
+            "CDGDR": "G",
+            "DTFVL": "2099-12-31",
+            "DTDVL": "1900-01-01",
+            "CDACSP": 0,
+            "LIPAYS": "GUINEE BISSAU           ",
+            "CDPAYS": 392,
+            "HFVAL": 0,
+            "QLZONJ": 4,
+            "CDZOFR": 0,
+            "DDVAL": 0,
+            "DFVAL": 0,
+            "CBDESE": "N",
+            "CDINDP": "  ",
+            "CDPABF": 257,
+            "CDMOBF": "    ",
+            "CDINPO": "  ",
+            "CDPAY0": "GW",
+            "CDCEE": 0,
+            "CDZONA": 0,
+            "TMSTP": "2019-02-18 03:13:30.70673",
+            "QLITVA": 0,
+            "CDNIF": "0",
+            "IDSTU": "87800"
+        },
+        {
+            "CDOCDE": 0,
+            "CPAINT": 99366,
+            "AGEMAJ": 18,
+            "CDGDR": "G",
+            "DTFVL": "2099-12-31",
+            "DTDVL": "1900-01-01",
+            "CDACSP": 0,
+            "LIPAYS": "MOZAMBIQUE              ",
+            "CDPAYS": 393,
+            "HFVAL": 0,
+            "QLZONJ": 4,
+            "CDZOFR": 0,
+            "DDVAL": 0,
+            "DFVAL": 0,
+            "CBDESE": "N",
+            "CDINDP": "  ",
+            "CDPABF": 366,
+            "CDMOBF": "    ",
+            "CDINPO": "  ",
+            "CDPAY0": "MZ",
+            "CDCEE": 0,
+            "CDZONA": 0,
+            "TMSTP": "2019-02-18 03:13:30.707312",
+            "QLITVA": 0,
+            "CDNIF": "0",
+            "IDSTU": "87800"
+        }
+    ]
+</script>
+</body>
+</html>
