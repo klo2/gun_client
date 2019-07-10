@@ -2,7 +2,7 @@
 <body>
 <h1>Gun</h1>
 
-<img id="loading" style="visibility: hidden" src="image/loading.gif" height="640" width="640"/>
+<img id="loading" src="image/loading.gif" height="640" width="640"/>
 
 <form id="sign">
     <input id="alias" placeholder="username" value="claude">
@@ -24,7 +24,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script>
 <script>
     // var gun = Gun(['http://localhost:8765/gun', 'https://gunjs.herokuapp.com/gun']);
-    var gun = Gun(['http://localhost:8765/gun','https://gun.cleverapps.io/gun']);
+    var gun = Gun(['http://localhost:8765/gun','http://81.250.154.241:8765/gun',,'https://gun.cleverapps.io/gun']);
     var user = gun.user();
 // création du user GUN
     $('#up').on('click', function(e){
@@ -40,9 +40,9 @@
     $('#said').on('submit', function(e){
         e.preventDefault();
         if(!user.is){ return }
-        list.forEach(function(l){
-            user.get('pays').put(l);
-        })
+        // list.forEach(function(l){
+        //     user.get('pays').put(l);
+        // })
         user.get('said').set($('#say').val());
         //$('#say').val("");
     });
@@ -56,7 +56,12 @@
         $('#sign').hide();
         $("#loading").hide();
         user.get('said').map().once(UI);
-        console.log(user.get('pays').map().once(UI))
+        user.get('pays').on(
+            function(data,key){
+
+                console.log(data)
+
+            });
     });
     //sign auto
     user.auth($('#alias').val(), $('#pass').val());
