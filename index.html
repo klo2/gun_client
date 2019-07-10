@@ -23,8 +23,8 @@
 <script src="https://cdn.jsdelivr.net/npm/gun/sea.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gun/lib/webrtc.js"></script>
 <script>
-    // var gun = Gun(['https://gun.cleverapps.io/gun','http://localhost:8765/gun', 'https://gunjs.herokuapp.com/gun']);
-    var gun = Gun(['https://gun.cleverapps.io/gun']);
+    // var gun = Gun(['http://localhost:8765/gun', 'https://gunjs.herokuapp.com/gun']);
+    var gun = Gun(['http://localhost:8765/gun','https://gun.cleverapps.io/gun']);
     var user = gun.user();
 // création du user GUN
     $('#up').on('click', function(e){
@@ -56,10 +56,11 @@
         $('#sign').hide();
         $("#loading").hide();
         user.get('said').map().once(UI);
+        console.log(user.get('pays').map().once(UI))
     });
     //sign auto
     user.auth($('#alias').val(), $('#pass').val());
-    $("#loading").show();
+    $("#loading").show(user.get('pays'));
 
     list=[
         {
